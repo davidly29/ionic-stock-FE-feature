@@ -1,17 +1,73 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
+<ion-header>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content color="light">
+  <ion-title class="ion-justify-content-start">
+    Overview
+  </ion-title>
+  <ion-toolbar color="light">
+    <ion-buttons slot="end">
+      <ion-button color="dark">New View <ion-icon name="add-circle-outline"></ion-icon></ion-button>
+      <ion-button color="primary">Create New Report <ion-icon name="clipboard-outline"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div class="ion-padding">
+    <ion-card>
+      <ion-card-header>
+        New Orders: 15000
+            <ion-select value="7days" okText="Okay" cancelText="Dismiss" align="right">
+              <ion-select-option value="7days">Last 7 Days</ion-select-option>
+              <ion-select-option value="month">Last Month</ion-select-option>
+              <ion-select-option value="year">Last Year</ion-select-option>
+              <ion-select-option value="forever">Forever</ion-select-option>
+            </ion-select>
+      </ion-card-header>
+      <ion-card-content>
+        <canvas baseChart [datasets]="chartData" [labels]="chartLabels" [chartType]="chartType"></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        Orders Over time
+      </ion-card-header>
+      <ion-card-content>
+        <canvas baseChart [datasets]="chartData" [labels]="chartLabels" [chartType]="chartTypeBar"></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <canvas baseChart [datasets]="chartData" [labels]="chartLabels" [chartType]="chartType"></canvas>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ion-grid>
+    <ion-title (click)="commentNow()">Comments </ion-title>
+    <ion-row *ngFor="let comment of customerReviews">
+      <ion-col class="message my-message">
+        <ion-item text-wrap>
+        <ion-avatar><img [src]=comment.img></ion-avatar>
+          <div class="time" text-right> {{comment.name}} {{ comment.date | date:'short'}}: </div>
+        <span>{{ comment.comment }}</span>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+<ion-footer *ngIf="isReview">
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="10">
+        <ion-textarea placeholder="Leave a Review" autoGrow="true" class="message-input" rows="1" maxlength="500" [(ngModel)]="newComment"></ion-textarea>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button expand="block" fill="clear" color="primary" class="btn-msg" (click)="post()">
+         <ion-icon name="send" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

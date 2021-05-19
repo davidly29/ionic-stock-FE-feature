@@ -1,0 +1,28 @@
+.message {
+  padding: 10px;
+  border-radius: 10px;
+  border-color: #1e2023;
+  margin-bottom: 4px;
+  white-space: pre-wrap;
+}
+.my-message {
+  // backround: var(--ion-color-secondary);
+  background-color: #e3e3ea;
+  color: #000000;
+  width: 20px;
+}
+.time {
+  color: #989aa2;
+  font-size: small;
+}
+ion-item {
+  --ion-background-color: #e3e3ea;
+
+}
+ion-button {
+  alignment: right;
+  align-items: end;
+}
+ion-card {
+
+}
